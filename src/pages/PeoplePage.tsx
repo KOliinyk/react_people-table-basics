@@ -18,14 +18,22 @@ const PeoplePage: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div data-cy="app" style={{ position: 'relative' }}>
       <h1 className="title">People Page</h1>
 
-      {loading && <Loader />}
-      {error && <p className="has-text-danger">{error}</p>}
+      {loading && <Loader data-cy="loader" />}
+      {error && (
+        <p data-cy="peopleLoadingError" className="has-text-danger">
+          {error}
+        </p>
+      )}
 
-      {!loading && !error && (
+      {!loading && !error && people.length > 0 && (
         <PeopleTable people={people} selectedSlug={slug} />
+      )}
+
+      {!loading && !error && people.length === 0 && (
+        <p data-cy="noPeopleMessage">No people</p>
       )}
     </div>
   );

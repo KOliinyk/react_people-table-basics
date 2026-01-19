@@ -7,6 +7,7 @@ const Navbar: React.FC = () => (
       <div className="navbar-brand">
         <NavLink
           to="/"
+          data-cy="nav-home"
           className={({ isActive }) =>
             `navbar-item ${isActive ? 'has-background-grey-lighter' : ''}`
           }
@@ -16,6 +17,7 @@ const Navbar: React.FC = () => (
 
         <NavLink
           to="/people"
+          data-cy="nav-people"
           className={({ isActive }) =>
             `navbar-item ${isActive ? 'has-background-grey-lighter' : ''}`
           }
