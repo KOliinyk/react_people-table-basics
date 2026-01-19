@@ -32,7 +32,9 @@ const PeopleTable: React.FC<Props> = ({ people, selectedSlug }) => (
           <tr
             key={person.slug}
             data-cy="person"
-            className={person.slug === selectedSlug ? 'has-background-warning' : ''}
+            className={
+              person.slug === selectedSlug ? 'has-background-warning' : ''
+            }
           >
             <td>
               <PersonLink
