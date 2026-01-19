@@ -24,52 +24,52 @@ const PeopleTable: React.FC<Props> = ({ people, selectedSlug }) => (
     </thead>
 
     <tbody>
-      {people.map(person => (
-        <tr
-          key={person.slug}
-          data-cy="person"
-          className={
-            person.slug === selectedSlug ? 'has-background-warning' : ''
-          }
-        >
-          <td>
-            <PersonLink
-              person={mother}
-              className={mother.sex === 'f' ? 'has-text-danger' : ''}
-            >
-              {person.name}
-            </PersonLink>
-          </td>
+      {people.map(person => {
+        const mother = people.find(p => p.name === person.motherName);
+        const father = people.find(p => p.name === person.fatherName);
 
-          <td>{person.sex}</td>
-          <td>{person.born}</td>
-          <td>{person.died}</td>
-
-          <td>
-            {person.motherName ? (
+        return (
+          <tr
+            key={person.slug}
+            data-cy="person"
+            className={person.slug === selectedSlug ? 'has-background-warning' : ''}
+          >
+            <td>
               <PersonLink
-                person={people.find(p => p.name === person.motherName)}
+                person={person}
+                className={person.sex === 'f' ? 'has-text-danger' : ''}
               >
-                {person.motherName}
+                {person.name}
               </PersonLink>
-            ) : (
-              '-'
-            )}
-          </td>
+            </td>
 
-          <td>
-            {person.fatherName ? (
-              <PersonLink
-                person={people.find(p => p.name === person.fatherName)}
-              >
-                {person.fatherName}
-              </PersonLink>
-            ) : (
-              '-'
-            )}
-          </td>
-        </tr>
-      ))}
+            <td>{person.sex}</td>
+            <td>{person.born}</td>
+            <td>{person.died}</td>
+
+            <td>
+              {!person.motherName && '-'}
+              {person.motherName && mother && (
+                <PersonLink
+                  person={mother}
+                  className={mother.sex === 'f' ? 'has-text-danger' : ''}
+                >
+                  {person.motherName}
+                </PersonLink>
+              )}
+              {person.motherName && !mother && person.motherName}
+            </td>
+
+            <td>
+              {!person.fatherName && '-'}
+              {person.fatherName && father && (
+                <PersonLink person={father}>{person.fatherName}</PersonLink>
+              )}
+              {person.fatherName && !father && person.fatherName}
+            </td>
+          </tr>
+        );
+      })}
     </tbody>
   </table>
 );
